@@ -1,4 +1,9 @@
 let storedVal = '';
+let firstVal = '';
+let operation = '';
+let secondVal = '';
+let split = '';
+let answer = '';
 
 function add(firstVal, secondVal) {
   return firstVal + secondVal;
@@ -15,16 +20,16 @@ function divide(firstVal, secondVal) {
 
 function operate(num1, op, num2) {
   if (op == '+') {
-    return add(num1, num2);
+    return add(+num1, +num2);
   }
   if (op == '-') {
-    return subtract(num1, num2);
+    return subtract(+num1, +num2);
   }
   if (op == '*') {
-    return multiply(num1, num2);
+    return multiply(+num1, +num2);
   }
   if (op == '/') {
-    return divide(num1, num2);
+    return divide(+num1, +num2);
   }
 }
 
@@ -32,10 +37,11 @@ function operate(num1, op, num2) {
 //upon click run operate function(w/storedvalues) thats firstVal, secondVal, and operation.
 
 function splitSort(str) {
-  let split = str.split('');
+  split = str.split('');
+  return split;
+}
 
-  console.log(split);
-
+function opFunc(split) {
   if (
     split.includes('+') ||
     split.includes('-') ||
@@ -45,19 +51,16 @@ function splitSort(str) {
     for (let i = 0; i < split.length; i++) {
       console.log(split[i]);
 
-      if (split[i] === '+' || split[i] === '-' || split[i] === '*') {
+      if (
+        split[i] === '+' ||
+        split[i] === '-' ||
+        split[i] === '*' ||
+        split[i] === '/'
+      ) {
         let index = split.indexOf(split[i]);
-        let firstVal = split.slice(0, index);
-        let operation = split[i];
-        let secondVal = split.slice(index + 1, split.length);
-
         console.log(split.indexOf(split[i]));
-        return {
-          index: index,
-          firstVal: firstVal,
-          operation: operation,
-          secondVal: secondVal,
-        };
+
+        return index;
       }
     }
   }
@@ -165,7 +168,15 @@ fifteen.addEventListener('click', () => {
 
   if (screen.textContent.length > 3) {
     console.log(splitSort(storedVal));
+    let index = opFunc(split);
+    firstVal = split.slice(0, index).join('');
+    operation = split[index];
+    secondVal = split.slice(index + 1, split.length).join('');
   }
+
+  answer = operate(firstVal, operation, secondVal);
+  screen.textContent = screen.textContent + answer;
+  return answer;
 });
 
 let sixteen = document.getElementById('16');
@@ -178,10 +189,7 @@ seventeen.addEventListener('click', () => {
   console.log(storedVal);
 });
 
-// let firstVal = values.firstVal;
-// let operation = values.operation;
-// let secondVal = values.secondVal;
-
-// console.log(firstVal);
-// console.log(operation);
-// console.log(secondVal);
+console.log(firstVal);
+console.log(operation);
+console.log(secondVal);
+console.log(answer);
