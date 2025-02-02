@@ -173,20 +173,39 @@ fifteen.addEventListener('click', () => {
     operation = split[index];
     secondVal = split.slice(index + 1, split.length).join('');
   }
-
   answer = operate(firstVal, operation, secondVal);
-  screen.textContent = screen.textContent + answer;
+  if (isNaN(answer)) {
+    screen.textContent = 'One operand Only, Try Again!';
+    storedVal = '';
+    firstVal = '';
+    operation = '';
+    secondVal = '';
+    split = '';
+    answer = '';
+  } else {
+    screen.textContent = answer;
+  }
   return answer;
 });
 
 let sixteen = document.getElementById('16');
 sixteen.addEventListener('click', () => {
+  screen.textContent = screen.textContent.slice(0, -1);
+  storedVal = storedVal.slice(0, -1);
+
   console.log(storedVal);
 });
 
 let seventeen = document.getElementById('17');
 seventeen.addEventListener('click', () => {
   console.log(storedVal);
+  screen.textContent = answer;
+  storedVal = '';
+  firstVal = '';
+  operation = '';
+  secondVal = '';
+  split = '';
+  answer = '';
 });
 
 console.log(firstVal);
